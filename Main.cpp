@@ -8,7 +8,8 @@
 using namespace std;
 
 char character(char, int);
-
+class InvalidCharacterException {};
+class InvalidRangeException {};
 
 int main() {
 	char start;
@@ -22,30 +23,27 @@ int main() {
 	try {
 		cout << "The character is: " << character(start, offset);
 	}
-	catch (string invalidCharacterException) {
-		cout << invalidCharacterException;
+	catch (InvalidCharacterException) {
+		cout << "ERROR: the start is not a letter.\n";
 	}
-	catch (string invalidRangeException) {
-		cout << invalidRangeException;
-	}
+	catch (InvalidRangeException) {
+		cout << "ERROR: the target is not a letter.\n";
+
+	system("pause");
+	return 0;
+}
 		
-
-
-
-
 
 }
 
 char character(char start, int offset)
 {
 	if (!isalpha(start)) {
-		string invalidCharacterException = "ERROR: start is not a letter.\n";
-		throw invalidCharacterException;
+		throw InvalidCharacterException();
 	}
-	if (!isalpha(start + offset)) {
-		string invalidRangeException = "ERROR: start is not a letter.\n";
-		throw invalidRangeException;
+	else if (!isalpha(start + offset)) {
+		throw InvalidRangeException();
 	}
-
-	return (start + offset);
+	else
+		return (start + offset);
 }
